@@ -1,8 +1,14 @@
+import java.util.Scanner;
+import java.util.Random;
+
 public class TicTacToe {
-
+	//Initializing Varibles 
+	int playerChoice;
+	int flipCoin;
+	
 	public static void main(String[] args) {
-
 		TicTacToe tictac = new TicTacToe();
+		tictac.toss();
 		tictac.printGameBoard();
 	}
 
@@ -20,6 +26,23 @@ public class TicTacToe {
 			}
 			System.out.println();
 		}
+	}
+
+	//Here the function toss is used to choose who will begin first player aur Computer.
+	private void toss() {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Please choose among these 0-head and 1-tail");
+		playerChoice = scan.nextInt();
+		
+		Random random = new Random();
+		flipCoin = random.nextInt(2);
+		
+		if(playerChoice == flipCoin) {
+			System.out.println("Player won the Toss!!!");
+		} else {
+			System.out.println("Computer won the Toss!!!");
+		}
+		scan.close();
 	}
 }
 

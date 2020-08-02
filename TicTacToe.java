@@ -4,7 +4,9 @@ import java.util.Random;
 public class TicTacToe {
 	//Initializing Varibles 
 	int playerChoice;
+	int computerChoice;
 	int flipCoin;
+	int choice;
 	
 	public static void main(String[] args) {
 		TicTacToe tictac = new TicTacToe();
@@ -39,10 +41,24 @@ public class TicTacToe {
 		
 		if(playerChoice == flipCoin) {
 			System.out.println("Player won the Toss!!!");
+			System.out.println("Enter your Choice among these 1-X or 2-O.");
+			playerChoice = scan.nextInt();
+			Choice(playerChoice);
 		} else {
 			System.out.println("Computer won the Toss!!!");
+			computerChoice = random.nextInt();
+			Choice(computerChoice);
 		}
 		scan.close();
+	}
+
+	//Here the function choice is used to choose either X or O 
+	private void Choice(int choice) {
+		if (choice == 1 ) {
+			System.out.println("Choice made by Winning the toss is X.");
+		} else {
+			System.out.println("Choice made by Winning the toss is O.");
+		}
 	}
 }
 

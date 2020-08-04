@@ -14,12 +14,11 @@ public class TicTacToe {
 
 	//Here the function printGameBoard is used to print gameBoard aur used to refresh the Board
 	private void printGameBoard() {
-		char [] [] gameBoard = {{ ' ' , ' ' ,'|' , ' ' , ' ' , '|' , ' ' , ' ' },
-      				     { '-' ,  '-' , '+' , '-' ,   '-' , '+' ,'-' , '-' },
-				     { ' ' , ' ' ,'|' , ' ' , ' ' , '|' , ' ' , ' ' },
-				     { '-' ,  '-' , '+' , '-' ,   '-' , '+' ,'-' , '-' },
-				     { ' ' , ' ' ,'|' , ' ' , ' ' , '|' , ' ' , ' '}};
-
+		char [] [] gameBoard = {{' ','|',' ','|',' '},
+					{'-','+','-','+','-'},
+					{' ','|',' ','|',' '},
+					{'-','+','-','+','-'},
+					{' ','|',' ','|',' '}};
 		for (char [] row : gameBoard) {
 			for(char c : row) {
 				System.out.print(c);

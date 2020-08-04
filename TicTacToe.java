@@ -3,7 +3,7 @@ public class TicTacToe {
 	public static void main(String[] args) {
 
 		TicTacToe tictac = new TicTacToe();
-		System.out.println("Welcome to TicTacToe game!!!");
+		System.out.println("Welcome to TicTacToe game!!");
 		tictac.printGameBoard();
 	}
 

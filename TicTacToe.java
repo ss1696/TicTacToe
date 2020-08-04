@@ -7,21 +7,26 @@ public class TicTacToe {
 	int computerChoice;
 	int flipCoin;
 	int choice;
+	int position;
 	
 	public static void main(String[] args) {
 		TicTacToe tictac = new TicTacToe();
 		System.out.println("Welcome to TicTacToe game!!!\nTo start the game we flip the coin.");
-		tictac.toss();
-		tictac.printGameBoard();
+		tictac.gameBoard();
 	}
 
 	//Here the function printGameBoard is used to print gameBoard aur used to refresh the Board
-	private void printGameBoard() {
+	private void gameBoard() {
 		char [] [] gameBoard = {{' ','|',' ','|',' '},
-					{'-','+','-','+','-'},
-					{' ','|',' ','|',' '},
-					{'-','+','-','+','-'},
-					{' ','|',' ','|',' '}};
+								{'-','+','-','+','-'},
+								{' ','|',' ','|',' '},
+								{'-','+','-','+','-'},
+								{' ','|',' ','|',' '}};
+		toss(gameBoard);
+	}
+	
+	//Here the function printGameBoard is used to print gameBoard aur used to refresh the Board
+	private void printGameBoard(char [] [] gameBoard) {
 		for (char [] row : gameBoard) {
 			for(char c : row) {
 				System.out.print(c);
@@ -31,7 +36,8 @@ public class TicTacToe {
 	}
 
 	//Here the function toss is used to choose who will begin first player aur Computer.
-	private void toss() {
+	private void toss(char [] [] gameBoard) {
+		position = 0;
 		Scanner scan = new Scanner(System.in);
 		System.out.println("Please choose among these 0-head and 1-tail");
 		playerChoice = scan.nextInt();
@@ -43,10 +49,18 @@ public class TicTacToe {
 			System.out.println("Enter your Choice among these 1-X or 2-O.");
 			playerChoice = scan.nextInt();
 			Choice(playerChoice);
+			printGameBoard(gameBoard);
+			System.out.print("Enter your Placement (1-9):");
+			position = scan.nextInt();
+			System.out.println("Position choosed by Player: "+position);
 		} else {
 			System.out.println("Computer won the Toss!!!");
 			computerChoice = random.nextInt();
 			Choice(computerChoice);
+			printGameBoard(gameBoard);
+			position = random.nextInt(9) + 1;
+			System.out.println();
+			System.out.println("Position choosed by Computer: "+position);
 		}
 		scan.close();
 	}

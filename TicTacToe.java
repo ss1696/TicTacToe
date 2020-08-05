@@ -216,31 +216,46 @@ public class TicTacToe {
 			} else if (playerPosition.size() + computerPosition.size() == 9) {
 				System.out.println("Match is Draw!!!");
 				return false;
-			} 
-			//Here if computer get the win position than he will move there..
-			else {
-				int k = 0;
-				List<Integer> unMatched = new ArrayList<>();
-				int index = 0;
-				while (k < 8) {
-					int matchCount = 0;
-					unMatched.clear();
-					for (int i = 0; i < winningConditions.get(k).size(); i++) {
-						if (occupiedPosition.contains(winningConditions.get(k).get(i))) {
-							if (computerPosition.contains(winningConditions.get(k).get(i))) {
-								matchCount++;
-							}
-						} else {
-							unMatched.add((Integer) winningConditions.get(k).get(i));
-						}
+			}
+		} 
+		return true;
+	}
+
+	//Here if computer get the win position than he will move there..
+		int computerMove(int computerPlacement) {
+		if (winCondition(computerPlacement) == true) {
+			return computerPlacement;
+		} else {
+			Random random = new Random();
+			return computerPlacement = random.nextInt(9) + 1;
+		}
+	}
+
+	boolean winCondition(int computerPlacement) {
+		int[][] winPosition = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 }, { 1, 4, 7 }, { 2, 5, 8 }, { 3, 6, 9 }, { 1, 5, 9 },
+                { 3, 5, 7 } };
+		int k = 0;
+		List<Integer> unMatched = new ArrayList<>();
+
+		while (k < 8) {
+			int matchCount = 0;
+			unMatched.clear();
+
+			for (int i = 0; i < winPosition[k].length; i++) {
+				if (occupiedPosition.contains(winPosition[k][i])) {
+					if (computerPosition.contains(winPosition[k][i])) {
+						matchCount++;
 					}
-					if (matchCount == 2 && unMatched.size() == 1) {
-						index = unMatched.get(0);
-						break;
-					}
-					k++;
+				} else {
+					unMatched.add(winPosition[k][i]);
 				}
 			}
+
+			if (matchCount == 2 && unMatched.size() == 1) {
+				computerPlacement = unMatched.get(0);
+				break;
+			}
+			k++;
 		}
 		return true;
 	}

@@ -216,7 +216,9 @@ public class TicTacToe {
 			} else if (playerPosition.size() + computerPosition.size() == 9) {
 				System.out.println("Match is Draw!!!");
 				return false;
-			} else {
+			} 
+			//Here if computer get the win position than he will move there..
+			else {
 				int k = 0;
 				List<Integer> unMatched = new ArrayList<>();
 				int index = 0;

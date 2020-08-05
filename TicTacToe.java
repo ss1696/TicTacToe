@@ -14,8 +14,9 @@ public class TicTacToe {
 	char computerSymbol;
 	String user;
 	char [] [] gameBoard;
-	ArrayList<Integer> playerPosition = new ArrayList<Integer>();
-	ArrayList<Integer> computerPosition = new ArrayList<Integer>();
+	List<Integer> playerPosition = new ArrayList<Integer>();
+	List<Integer> computerPosition = new ArrayList<Integer>();
+	List<Integer> occupiedPosition = new ArrayList<>();
 
 	public static void main(String[] args) {
 		TicTacToe tictac = new TicTacToe();
@@ -71,6 +72,7 @@ public class TicTacToe {
 			printGameBoard(gameBoard);
 			playGame(gameBoard);
 		}
+		scan.close();
 	}
 	//Here this function is used to play the game till the winning , loosing aur tie condition reached 
 	void playGame(char[][] gameBoard) {
@@ -78,23 +80,28 @@ public class TicTacToe {
 			Scanner scan = new Scanner(System.in);
 			System.out.print("Enter your Placement (1-9):");
 			int playerPlacement = scan.nextInt();
+			occupiedPosition.contains(playerPlacement);
 			//check that player could not enter the value at place which is already taken
 			while (playerPosition.contains(playerPlacement) || computerPosition.contains(playerPlacement)) {
 				System.out.println("Position is Taken!! Enter a correct Position");
 				playerPlacement = scan.nextInt();
+				occupiedPosition.contains(playerPlacement);
 			}
 			placeChoice(gameBoard,playerPlacement,"player");
 			Random random = new Random();
 			int computerPlacement = random.nextInt(9) + 1;
-			checkWinning();//check that computer could not enter the value at place which is already taken
+			occupiedPosition.contains(computerPlacement);
+			//check that computer could not enter the value at place which is already taken
 			while (playerPosition.contains(computerPlacement) || computerPosition.contains(computerPlacement)) {
-				System.out.println("Position is Taken!! Enter a correct Position");
 				computerPlacement = random.nextInt(9) + 1;
+				occupiedPosition.contains(computerPlacement);
 			}
 			placeChoice(gameBoard,computerPlacement,"computer");
 			printGameBoard(gameBoard);
 			checkWinning();
 		}
+		System.out.println(computerPosition);
+		System.out.println(playerPosition);
 	}
 
 	//Here this function is used to place the symbol X or O according to the selection of player and computer
@@ -188,7 +195,7 @@ public class TicTacToe {
 		List<Integer> cross1 = Arrays.asList(1,5,9);
 		List<Integer> cross2 = Arrays.asList(3,5,7);
 
-		List<List> winningConditions = new ArrayList<List>();
+		List<List> winningConditions = new ArrayList<>();
 		winningConditions.add(topRow);
 		winningConditions.add(midRow);
 		winningConditions.add(lastRow);
@@ -209,11 +216,30 @@ public class TicTacToe {
 			} else if (playerPosition.size() + computerPosition.size() == 9) {
 				System.out.println("Match is Draw!!!");
 				return false;
+			} else {
+				int k = 0;
+				List<Integer> unMatched = new ArrayList<>();
+				int index = 0;
+				while (k < 8) {
+					int matchCount = 0;
+					unMatched.clear();
+					for (int i = 0; i < winningConditions.get(k).size(); i++) {
+						if (occupiedPosition.contains(winningConditions.get(k).get(i))) {
+							if (computerPosition.contains(winningConditions.get(k).get(i))) {
+								matchCount++;
+							}
+						} else {
+							unMatched.add((Integer) winningConditions.get(k).get(i));
+						}
+					}
+					if (matchCount == 2 && unMatched.size() == 1) {
+						index = unMatched.get(0);
+						break;
+					}
+					k++;
+				}
 			}
 		}
-
 		return true;
 	}
-
 }
-

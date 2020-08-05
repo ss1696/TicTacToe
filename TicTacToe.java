@@ -74,7 +74,7 @@ public class TicTacToe {
 	}
 	//Here this function is used to play the game till the winning , loosing aur tie condition reached 
 	void playGame(char[][] gameBoard) {
-		while (true) {
+		while (checkWinning()) {
 			Scanner scan = new Scanner(System.in);
 			System.out.print("Enter your Placement (1-9):");
 			int playerPlacement = scan.nextInt();
@@ -86,15 +86,14 @@ public class TicTacToe {
 			placeChoice(gameBoard,playerPlacement,"player");
 			Random random = new Random();
 			int computerPlacement = random.nextInt(9) + 1;
-			//check that computer could not enter the value at place which is already taken
+			checkWinning();//check that computer could not enter the value at place which is already taken
 			while (playerPosition.contains(computerPlacement) || computerPosition.contains(computerPlacement)) {
 				System.out.println("Position is Taken!! Enter a correct Position");
 				computerPlacement = random.nextInt(9) + 1;
 			}
 			placeChoice(gameBoard,computerPlacement,"computer");
 			printGameBoard(gameBoard);
-			String winner = this.checkWinning();
-			System.out.println(winner);
+			checkWinning();
 		}
 	}
 
@@ -179,7 +178,7 @@ public class TicTacToe {
 	}
 
 	//Here this function is used to check the winning conditions
-	String checkWinning() {
+	boolean checkWinning() {
 		List<Integer> topRow = Arrays.asList(1,2,3);
 		List<Integer> midRow = Arrays.asList(4,5,6);
 		List<Integer> lastRow = Arrays.asList(7,8,9);
@@ -202,15 +201,18 @@ public class TicTacToe {
 
 		for(List l : winningConditions) {
 			if(playerPosition.containsAll(l)) {
-				return "Congratulation you Won!!";
+				System.out.println("Congratulation you Won!!");
+				return false;
 			} else if(computerPosition.containsAll(l)) {
-				return "Computer Wins!! Sorry :(";
+				System.out.println("Computer Wins!! Sorry :(");
+				return false;
 			} else if (playerPosition.size() + computerPosition.size() == 9) {
-				return "Match is Draw!!!";
+				System.out.println("Match is Draw!!!");
+				return false;
 			}
 		}
 
-		return "";
+		return true;
 	}
 
 }

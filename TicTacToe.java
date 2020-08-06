@@ -104,29 +104,66 @@ public class TicTacToe {
 
     //function to get the cell index from the computer.
     private static int cpuMove(List<Integer> occupiedPosition, List<Integer> playerPosition, List<Integer> cpuPosition) {
+	
+		int index = generateRandom(9) + 1;
+		while (occupiedPosition.contains(index)) {
+			index = generateRandom(9) + 1;
+		}
 
-        Random r = new Random();
-        int index = r.nextInt(9) + 1;
-        while (occupiedPosition.contains(index)) {
-            index = r.nextInt(9) + 1;
-        }
+		int firstIndex = index;
 
-        int firstIndex = index;
+		// calling a function to get a winning chance.
+		index = bestPosition(cpuPosition, occupiedPosition, index);
+		if (firstIndex != index) {
+			return index;
+		}
 
-        //calling a function to get a winning chance.
-        index = bestPosition(cpuPosition, occupiedPosition, index);
-        if (firstIndex != index) {
-            return index;
-        }
+		// calling a function to stop my opponent from winning.
+		index = bestPosition(playerPosition, occupiedPosition, index);
+		if (firstIndex != index) {
+			return index;
+		}
 
-        //calling a function to stop my opponent from winning.
-        index = bestPosition(playerPosition, occupiedPosition, index);
-        if (firstIndex != index) {
-            return index;
-        }
+		// calling a function to get a corner index if not filled.
+		index = possibleCornerPosition(occupiedPosition, index);
+		if (firstIndex != index) {
+			return index;
+		}
 
-        return index;
-    }
+		if(occupiedPosition.contains(5) == false){
+			return 5;
+		}
+
+		return index;
+	}
+
+	private static int generateRandom(int maxRandom) {
+		Random r = new Random();
+		return r.nextInt(maxRandom);
+	}
+	
+	//function used to check if corner is available than put value there
+	private static int possibleCornerPosition(List<Integer> occupiedPosition, int index) {
+
+		int[] corner = { 1, 3, 7, 9 };
+		List<Integer> random = new ArrayList<>();
+
+		while (random.size() != 4) {
+			int r = generateRandom(4);
+			while (random.contains(r)) {
+				r = generateRandom(4);
+			}
+			if (occupiedPosition.contains(corner[r])) {
+				random.add(r);
+				break;
+			} else {
+				return corner[r];
+			}
+		}
+
+		return index;
+	}
+
 
     //function to get the best possible index where the symbol can be placed on the board to win or stop the opponent from winning.
     private static int bestPosition(List<Integer> position, List<Integer> occupiedPosition, int index) {

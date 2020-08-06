@@ -76,7 +76,6 @@ public class TicTacToe {
 				}
 				toss = true;
 			}
-
 			// checking for draw.
 			if (play.checkForDraw(board)) {
 				System.out.println("It's a draw");

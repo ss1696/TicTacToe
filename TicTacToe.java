@@ -4,14 +4,14 @@ public class TicTacToe {
 
 	public static void main(String[] args) {
 		String[][] board = new String[3][3];
-		PlayingTTT play = new PlayingTTT();
+		PlayingTicTacToe play = new PlayingTicTacToe();
 		Scanner sc = new Scanner(System.in);
 		playingTheGame(board, play, sc);
 		sc.close();
 	}
 
 	//function to start the game play
-	public static void playingTheGame(String[][] board, PlayingTTT play, Scanner sc) {
+	public static void playingTheGame(String[][] board, PlayingTicTacToe play, Scanner sc) {
 
 		List<Integer> PlayerPosition = new ArrayList<>();
 		List<Integer> position = new ArrayList<>();
@@ -196,7 +196,7 @@ public class TicTacToe {
 
 }
 
-class PlayingTTT {
+class PlayingTicTacToe {
 
 	//function to get the cell index from the user.
 	public void settingBoard(String[][] board) {

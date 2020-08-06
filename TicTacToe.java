@@ -12,7 +12,6 @@ public class TicTacToe {
 
 	//function to start the game play
 	public static void playingTheGame(String[][] board, PlayingTTT play, Scanner sc) {
-
 		List<Integer> PlayerPosition = new ArrayList<>();
 		List<Integer> position = new ArrayList<>();
 		List<Integer> occupiedPosition = new ArrayList<>();
@@ -88,7 +87,7 @@ public class TicTacToe {
 		play.printGameBoard(board);
 	}
 
-	//unction to get the cell index from the user.
+	//function to get the cell index from the user.
 	private static int checkingIfPresent(Scanner sc, List<Integer> occupiedPosition) {
 		System.out.println("enter a the position you want to place your symbol, between 1-9");
 		int index = sc.nextInt();
@@ -141,11 +140,10 @@ public class TicTacToe {
 		Random r = new Random();
 		return r.nextInt(maxRandom);
 	}
-
+	
+	//function to check if corner are available or not if not than than take any possible place
 	private static int anyPossiblePlacement(List<Integer> occupiedPosition, List<Integer> random, int index, List<Integer> toCompare) {
-
 		 random.clear();
-
 	        while (random.size() <= 4) {
 	            int r = generateRandom(4);
 	            while (random.contains(r)) {
